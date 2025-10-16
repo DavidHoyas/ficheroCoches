@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Coches>
+    <Coche>
+        <Codigo>101</Codigo>
+        <Nombre>Tesla Model 3</Nombre>
+        <Tipo>Sedan</Tipo>
+        <Precio>45000.0</Precio>
+        <Disponible>true</Disponible>
+    </Coche>
+    <Coche>
+        <Codigo>102</Codigo>
+        <Nombre>Ford Mustang</Nombre>
+        <Tipo>Deportivo</Tipo>
+        <Precio>55000.0</Precio>
+        <Disponible>true</Disponible>
+    </Coche>
+    <Coche>
+        <Codigo>103</Codigo>
+        <Nombre>BMW X5</Nombre>
+        <Tipo>SUV</Tipo>
+        <Precio>70000.0</Precio>
+        <Disponible>false</Disponible>
+    </Coche>
+    <Coche>
+        <Codigo>104</Codigo>
+        <Nombre>Audi A4</Nombre>
+        <Tipo>Sedan</Tipo>
+        <Precio>40000.0</Precio>
+        <Disponible>true</Disponible>
+    </Coche>
+    <Coche>
+        <Codigo>105</Codigo>
+        <Nombre>Jeep Wrangler</Nombre>
+        <Tipo>SUV</Tipo>
+        <Precio>50000.0</Precio>
+        <Disponible>false</Disponible>
+    </Coche>
+</Coches>
