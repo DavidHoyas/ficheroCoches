@@ -2,9 +2,9 @@
 <Coches>
     <Coche>
         <Codigo>101</Codigo>
-        <Nombre>Tesla Model 3</Nombre>
-        <Tipo>Sedan</Tipo>
-        <Precio>45000.0</Precio>
+        <Nombre>BMW X1</Nombre>
+        <Tipo>SUV</Tipo>
+        <Precio>35000.0</Precio>
         <Disponible>true</Disponible>
     </Coche>
     <Coche>
@@ -30,9 +30,9 @@
     </Coche>
     <Coche>
         <Codigo>105</Codigo>
-        <Nombre>Jeep Wrangler</Nombre>
-        <Tipo>SUV</Tipo>
-        <Precio>50000.0</Precio>
-        <Disponible>false</Disponible>
+        <Nombre>BMW M8</Nombre>
+        <Tipo>Deportivo</Tipo>
+        <Precio>100000.0</Precio>
+        <Disponible>true</Disponible>
     </Coche>
 </Coches>

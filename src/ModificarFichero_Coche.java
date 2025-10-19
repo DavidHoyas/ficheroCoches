@@ -3,8 +3,8 @@ import java.util.*;
 
 public class ModificarFichero_Coche {
     public static void main(String[] args) {
-        if(args.length < 5) {
-            System.out.println("Uso: java ModificarFichero_Coche codigo nombre tipo precio disponible");
+        if (args.length < 5) {
+            System.out.println("Modificar: codigo, nombre, tipo, precio, disponible");
             return;
         }
 
@@ -53,4 +53,3 @@ public class ModificarFichero_Coche {
         }
     }
 }
-
