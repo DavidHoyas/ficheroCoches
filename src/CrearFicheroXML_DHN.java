@@ -6,23 +6,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 
-// Clase Coche serializable
-class Coche implements Serializable {
-    int codigo;
-    String nombre;
-    String tipo;
-    float precio;
-    boolean disponible;
-
-    Coche(int codigo, String nombre, String tipo, float precio, boolean disponible) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.precio = precio;
-        this.disponible = disponible;
-    }
-}
-
 public class CrearFicheroXML_DHN {
 
     public static void main(String[] args) {
@@ -34,18 +17,21 @@ public class CrearFicheroXML_DHN {
             Element root = doc.createElement("Coches");
             doc.appendChild(root);
 
-            List<Coche> coches = new ArrayList<>();
+            List<CrearFichero_DHN> coches = new ArrayList<>();
 
+            // Leer objetos desde coches.dat correctamente
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("coches.dat"))) {
                 while (true) {
-                    coches.add((Coche) ois.readObject());
+                    coches.add((CrearFichero_DHN) ois.readObject()); // ✅ clase correcta
                 }
             } catch (EOFException eof) {
+                // Fin del fichero
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            for (Coche c : coches) {
+            // Crear XML
+            for (CrearFichero_DHN c : coches) {
                 Element cocheElem = doc.createElement("Coche");
 
                 Element codigo = doc.createElement("Codigo");
@@ -73,7 +59,7 @@ public class CrearFicheroXML_DHN {
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // para sangría
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes"); // sangría
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File("coches.xml"));
             transformer.transform(source, result);

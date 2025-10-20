@@ -9,9 +9,9 @@
     </Coche>
     <Coche>
         <Codigo>102</Codigo>
-        <Nombre>Ford Mustang</Nombre>
+        <Nombre>BMW M4</Nombre>
         <Tipo>Deportivo</Tipo>
-        <Precio>55000.0</Precio>
+        <Precio>70000.0</Precio>
         <Disponible>true</Disponible>
     </Coche>
     <Coche>
