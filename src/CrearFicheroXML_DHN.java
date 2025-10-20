@@ -23,7 +23,7 @@ class Coche implements Serializable {
     }
 }
 
-public class CrearFicheroXML_Coche {
+public class CrearFicheroXML_DHN {
 
     public static void main(String[] args) {
         try {

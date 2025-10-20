@@ -2,7 +2,7 @@ import java.io.File;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
 
-public class FicheroXSLT_Coche {
+public class FicheroXSLT_DHN {
     public static void main(String[] args) {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();

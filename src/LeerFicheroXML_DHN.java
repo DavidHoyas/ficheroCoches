@@ -4,7 +4,7 @@ import org.w3c.dom.*;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class LeerFicheroXML_Coche {
+public class LeerFicheroXML_DHN {
 
     public static void main(String[] args) {
         try {
@@ -27,7 +27,8 @@ public class LeerFicheroXML_Coche {
             while (true) {
                 try {
                     cocheElemento = (Element) raiz.getElementsByTagName("Coche").item(indice);
-                    if (cocheElemento == null) break;
+                    if (cocheElemento == null)
+                        break;
 
                     String codigo = cocheElemento.getElementsByTagName("Codigo").item(0).getTextContent();
                     String nombre = cocheElemento.getElementsByTagName("Nombre").item(0).getTextContent();
@@ -57,16 +58,22 @@ public class LeerFicheroXML_Coche {
                 boolean esDisponible = false;
 
                 public void startElement(String uri, String localName, String qName, Attributes atributos) {
-                    if (qName.equalsIgnoreCase("Codigo")) esCodigo = true;
-                    else if (qName.equalsIgnoreCase("Nombre")) esNombre = true;
-                    else if (qName.equalsIgnoreCase("Tipo")) esTipo = true;
-                    else if (qName.equalsIgnoreCase("Precio")) esPrecio = true;
-                    else if (qName.equalsIgnoreCase("Disponible")) esDisponible = true;
+                    if (qName.equalsIgnoreCase("Codigo"))
+                        esCodigo = true;
+                    else if (qName.equalsIgnoreCase("Nombre"))
+                        esNombre = true;
+                    else if (qName.equalsIgnoreCase("Tipo"))
+                        esTipo = true;
+                    else if (qName.equalsIgnoreCase("Precio"))
+                        esPrecio = true;
+                    else if (qName.equalsIgnoreCase("Disponible"))
+                        esDisponible = true;
                 }
 
                 public void characters(char[] ch, int start, int length) {
                     String texto = new String(ch, start, length).trim();
-                    if (texto.isEmpty()) return;
+                    if (texto.isEmpty())
+                        return;
 
                     if (esCodigo) {
                         System.out.print("Código: " + texto + ", ");

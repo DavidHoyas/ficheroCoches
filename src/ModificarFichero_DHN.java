@@ -1,15 +1,15 @@
 import java.io.*;
 import java.util.*;
 
-public class ModificarFichero_Coche {
+public class ModificarFichero_DHN {
 
     public static void main(String[] args) {
-        List<CrearFichero_Coche> coches = new ArrayList<>();
+        List<CrearFichero_DHN> coches = new ArrayList<>();
 
         // Leer coches desde coches.dat
         try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream("coches.dat"))) {
             while (true) {
-                CrearFichero_Coche c = (CrearFichero_Coche) entrada.readObject();
+                CrearFichero_DHN c = (CrearFichero_DHN) entrada.readObject();
                 coches.add(c);
             }
         } catch (EOFException e) {
@@ -24,13 +24,14 @@ public class ModificarFichero_Coche {
 
         // Mostrar todos los coches
         System.out.println("Coches actuales en el fichero:");
-        for (CrearFichero_Coche c : coches) {
+        for (CrearFichero_DHN c : coches) {
             System.out.println(c);
         }
 
         // Comprobar si hay suficientes argumentos para modificar
         if (args.length < 5) {
-            System.out.println("\nPara modificar un coche, ejecuta con: <codigo> <nombre> <tipo> <precio> <disponible>");
+            System.out
+                    .println("\nPara modificar un coche, ejecuta con: <codigo> <nombre> <tipo> <precio> <disponible>");
             return;
         }
 
@@ -44,7 +45,7 @@ public class ModificarFichero_Coche {
         boolean encontrado = false;
 
         // Buscar y modificar coche
-        for (CrearFichero_Coche c : coches) {
+        for (CrearFichero_DHN c : coches) {
             if (c.codigo == codigo) {
                 encontrado = true;
                 System.out.println("\nDatos antiguos: " + c);
@@ -66,7 +67,7 @@ public class ModificarFichero_Coche {
 
         // Guardar cambios en coches.dat
         try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("coches.dat"))) {
-            for (CrearFichero_Coche c : coches) {
+            for (CrearFichero_DHN c : coches) {
                 salida.writeObject(c);
             }
             System.out.println("\nFichero actualizado correctamente.");
