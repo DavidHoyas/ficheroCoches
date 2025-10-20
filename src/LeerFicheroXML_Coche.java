@@ -8,77 +8,89 @@ public class LeerFicheroXML_Coche {
 
     public static void main(String[] args) {
         try {
+
             System.out.println("=== DOM ===");
+
             File archivoXML = new File("coches.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(archivoXML);
-            doc.getDocumentElement().normalize();
 
-            NodeList nList = doc.getElementsByTagName("Coche");
+            DocumentBuilderFactory fabrica = DocumentBuilderFactory.newInstance();
+            DocumentBuilder constructor = fabrica.newDocumentBuilder();
+            Document documento = constructor.parse(archivoXML);
 
-            for (int i = 0; i < nList.getLength(); i++) {
-                Node node = nList.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    Element e = (Element) node;
-                    System.out.println(
-                            "Código: " + e.getElementsByTagName("Codigo").item(0).getTextContent() +
-                                    ", Nombre: " + e.getElementsByTagName("Nombre").item(0).getTextContent() +
-                                    ", Tipo: " + e.getElementsByTagName("Tipo").item(0).getTextContent() +
-                                    ", Precio: " + e.getElementsByTagName("Precio").item(0).getTextContent() +
-                                    ", Disponible: " + e.getElementsByTagName("Disponible").item(0).getTextContent());
+            documento.getDocumentElement().normalize();
+
+            Element raiz = documento.getDocumentElement();
+
+            Element cocheElemento;
+            int indice = 0;
+
+            while (true) {
+                try {
+                    cocheElemento = (Element) raiz.getElementsByTagName("Coche").item(indice);
+                    if (cocheElemento == null) break;
+
+                    String codigo = cocheElemento.getElementsByTagName("Codigo").item(0).getTextContent();
+                    String nombre = cocheElemento.getElementsByTagName("Nombre").item(0).getTextContent();
+                    String tipo = cocheElemento.getElementsByTagName("Tipo").item(0).getTextContent();
+                    String precio = cocheElemento.getElementsByTagName("Precio").item(0).getTextContent();
+                    String disponible = cocheElemento.getElementsByTagName("Disponible").item(0).getTextContent();
+
+                    System.out.println("Código: " + codigo + ", Nombre: " + nombre +
+                            ", Tipo: " + tipo + ", Precio: " + precio + ", Disponible: " + disponible);
+
+                    indice++;
+                } catch (Exception e) {
+                    break;
                 }
             }
 
-            System.out.println("=== SAX ===");
-            SAXParserFactory saxFactory = SAXParserFactory.newInstance();
-            SAXParser saxParser = saxFactory.newSAXParser();
+            System.out.println("\n=== SAX ===");
 
-            DefaultHandler handler = new DefaultHandler() {
-                boolean codigo = false, nombre = false, tipo = false, precio = false, disponible = false;
+            SAXParserFactory fabricaSAX = SAXParserFactory.newInstance();
+            SAXParser parserSAX = fabricaSAX.newSAXParser();
 
-                @Override
-                public void startElement(String uri, String localName, String qName, Attributes attributes) {
-                    switch (qName) {
-                        case "Codigo" -> codigo = true;
-                        case "Nombre" -> nombre = true;
-                        case "Tipo" -> tipo = true;
-                        case "Precio" -> precio = true;
-                        case "Disponible" -> disponible = true;
-                    }
+            DefaultHandler manejador = new DefaultHandler() {
+                boolean esCodigo = false;
+                boolean esNombre = false;
+                boolean esTipo = false;
+                boolean esPrecio = false;
+                boolean esDisponible = false;
+
+                public void startElement(String uri, String localName, String qName, Attributes atributos) {
+                    if (qName.equalsIgnoreCase("Codigo")) esCodigo = true;
+                    else if (qName.equalsIgnoreCase("Nombre")) esNombre = true;
+                    else if (qName.equalsIgnoreCase("Tipo")) esTipo = true;
+                    else if (qName.equalsIgnoreCase("Precio")) esPrecio = true;
+                    else if (qName.equalsIgnoreCase("Disponible")) esDisponible = true;
                 }
 
-                @Override
                 public void characters(char[] ch, int start, int length) {
-                    String value = new String(ch, start, length).trim();
-                    if (value.isEmpty())
-                        return;
+                    String texto = new String(ch, start, length).trim();
+                    if (texto.isEmpty()) return;
 
-                    if (codigo) {
-                        System.out.print("Código: " + value + ", ");
-                        codigo = false;
-                    } else if (nombre) {
-                        System.out.print("Nombre: " + value + ", ");
-                        nombre = false;
-                    } else if (tipo) {
-                        System.out.print("Tipo: " + value + ", ");
-                        tipo = false;
-                    } else if (precio) {
-                        System.out.print("Precio: " + value + ", ");
-                        precio = false;
-                    } else if (disponible) {
-                        System.out.println("Disponible: " + value);
-                        disponible = false;
+                    if (esCodigo) {
+                        System.out.print("Código: " + texto + ", ");
+                        esCodigo = false;
+                    } else if (esNombre) {
+                        System.out.print("Nombre: " + texto + ", ");
+                        esNombre = false;
+                    } else if (esTipo) {
+                        System.out.print("Tipo: " + texto + ", ");
+                        esTipo = false;
+                    } else if (esPrecio) {
+                        System.out.print("Precio: " + texto + ", ");
+                        esPrecio = false;
+                    } else if (esDisponible) {
+                        System.out.println("Disponible: " + texto);
+                        esDisponible = false;
                     }
                 }
 
-                @Override
                 public void endElement(String uri, String localName, String qName) {
-
                 }
             };
 
-            saxParser.parse(archivoXML, handler);
+            parserSAX.parse(archivoXML, manejador);
 
         } catch (Exception e) {
             e.printStackTrace();

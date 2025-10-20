@@ -2,9 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class ModificarFichero_Coche {
+
     public static void main(String[] args) {
         if (args.length < 5) {
-            System.out.println("Modificar: codigo, nombre, tipo, precio, disponible");
+            System.out.println("Uso correcto: java ModificarFichero_Coche <codigo> <nombre> <tipo> <precio> <disponible>");
             return;
         }
 
@@ -16,25 +17,33 @@ public class ModificarFichero_Coche {
 
         List<Coche> coches = new ArrayList<>();
 
-        try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream("coches.dat"))) {
+        try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream("coches.dat"))) {
             while (true) {
-                coches.add((Coche) oos.readObject());
+                Coche c = (Coche) entrada.readObject();
+                coches.add(c);
             }
         } catch (EOFException e) {
-
+        } catch (FileNotFoundException e) {
+            System.out.println("El fichero coches.dat no existe.");
+            return;
         } catch (Exception e) {
             e.printStackTrace();
+            return;
         }
 
         boolean encontrado = false;
+
         for (Coche c : coches) {
             if (c.codigo == codigo) {
+                encontrado = true;
+
                 System.out.println("Datos antiguos: " + c);
+
                 c.nombre = nombre;
                 c.tipo = tipo;
                 c.precio = precio;
                 c.disponible = disponible;
-                encontrado = true;
+
                 System.out.println("Datos modificados: " + c);
                 break;
             }
@@ -42,14 +51,16 @@ public class ModificarFichero_Coche {
 
         if (!encontrado) {
             System.out.println("No existe ningún coche con el código " + codigo);
-        } else {
-            try (ObjectOutputStream oss = new ObjectOutputStream(new FileOutputStream("coches.dat"))) {
-                for (Coche c : coches) {
-                    oss.writeObject(c);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            return;
+        }
+
+        try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("coches.dat"))) {
+            for (Coche c : coches) {
+                salida.writeObject(c);
             }
+            System.out.println("Fichero actualizado correctamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
